@@ -179,8 +179,8 @@ responsible for misuse.
 
 ## Roadmap
 
-- [ ] MCP Registry listing (`server.json` + publisher CLI)
-- [ ] Optional Smithery / Glama listings
+- [x] Official MCP Registry listing (`io.github.devkindhq/theharvester-mcp`)
+- [ ] Docker MCP Registry, Smithery and Glama listings
 - [ ] Pinned theHarvester version releases alongside `latest`
 - [ ] CI workflow building and pushing the multi-arch image on tag
 
