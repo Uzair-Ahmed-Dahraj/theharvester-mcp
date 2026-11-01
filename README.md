@@ -31,6 +31,104 @@ Add to `.mcp.json` (Claude Code) or your MCP client config:
 
 Then ask your agent: *"Harvest example.com using free sources."*
 
+### Install in your client
+
+Requirements:
+
+- Docker
+- Claude Desktop, Claude Code, Cursor, VS Code, Windsurf, or any other MCP client
+- No API keys for the default free sources
+
+**Standard config** works in most MCP clients:
+
+```json
+{
+  "mcpServers": {
+    "theharvester": {
+      "command": "docker",
+      "args": [
+        "run",
+        "--rm",
+        "-i",
+        "devkind/theharvester-mcp"
+      ]
+    }
+  }
+}
+```
+
+<details>
+<summary>Claude Desktop</summary>
+
+Follow the MCP install [guide](https://modelcontextprotocol.io/quickstart/user) and add the standard config above to your `claude_desktop_config.json`.
+
+</details>
+
+<details>
+<summary>Claude Code</summary>
+
+Run:
+
+```bash
+claude mcp add theharvester -- docker run --rm -i devkind/theharvester-mcp
+```
+
+Or add the standard config above to `.mcp.json` in your project root.
+
+</details>
+
+<details>
+<summary>Cursor</summary>
+
+#### Click the button to install:
+
+[<img src="https://cursor.com/deeplink/mcp-install-dark.svg" alt="Install in Cursor">](https://cursor.com/en/install-mcp?name=theHarvester%20MCP&config=eyJjb21tYW5kIjoiZG9ja2VyIiwiYXJncyI6WyJydW4iLCItLXJtIiwiLWkiLCJkZXZraW5kL3RoZWhhcnZlc3Rlci1tY3AiXX0%3D)
+
+#### Or install manually:
+
+Go to `Cursor Settings` -> `MCP` -> `Add new MCP Server`. Name it "theHarvester MCP", use `command` type with the command `docker run --rm -i devkind/theharvester-mcp`.
+
+</details>
+
+<details>
+<summary>VS Code</summary>
+
+Follow the MCP install [guide](https://code.visualstudio.com/docs/copilot/chat/mcp-servers#_add-an-mcp-server) and use the standard config above. You can also install with the VS Code CLI:
+
+```bash
+code --add-mcp '{"name":"theharvester","command":"docker","args":["run","--rm","-i","devkind/theharvester-mcp"]}'
+```
+
+</details>
+
+<details>
+<summary>Windsurf</summary>
+
+Follow the Windsurf MCP [documentation](https://docs.windsurf.com/windsurf/cascade/mcp) and use the standard config above.
+
+</details>
+
+<details>
+<summary>Goose</summary>
+
+Go to `Advanced settings` -> `Extensions` -> `Add custom extension`. Name it "theHarvester MCP", use type `STDIO`, and set the `command` to `docker run --rm -i devkind/theharvester-mcp`. Click "Add Extension".
+
+</details>
+
+<details>
+<summary>LM Studio</summary>
+
+Go to `Program` in the right sidebar -> `Install` -> `Edit mcp.json`. Use the standard config above.
+
+</details>
+
+<details>
+<summary>Warp</summary>
+
+Go to `Settings` -> `AI` -> `Manage MCP Servers` -> `+ Add` to [add an MCP Server](https://docs.warp.dev/knowledge-and-collaboration/mcp#adding-an-mcp-server). Use the standard config above, or use the slash command `/add-mcp` in the Warp prompt and paste it.
+
+</details>
+
 ## Tools
 
 | Tool | What it does |
@@ -92,3 +190,7 @@ responsible for misuse.
 [SECURITY.md](SECURITY.md).
 
 Built by [Devkind](https://devkind.com.au). Maintained by Kazim Ali.
+
+## Need OSINT and lead generation built into your stack?
+
+Devkind builds custom MCP servers, AI agent workflows and commerce integrations. If you want this kind of harvesting wired into your CRM, enrichment or outreach tooling, [talk to Devkind](https://devkind.com.au/services) or email [hello@devkind.com.au](mailto:hello@devkind.com.au).

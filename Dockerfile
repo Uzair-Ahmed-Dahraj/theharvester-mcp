@@ -4,6 +4,7 @@ LABEL org.opencontainers.image.title="theharvester-mcp"
 LABEL org.opencontainers.image.description="theHarvester MCP Server - OSINT email, subdomain and contact harvesting for AI agents"
 LABEL org.opencontainers.image.licenses="MIT"
 LABEL org.opencontainers.image.source="https://github.com/devkindhq/theharvester-mcp"
+LABEL io.modelcontextprotocol.server.name="io.github.devkindhq/theharvester-mcp"
 
 RUN addgroup --gid 1000 mcpuser && \
     adduser --disabled-password --uid 1000 --ingroup mcpuser mcpuser
