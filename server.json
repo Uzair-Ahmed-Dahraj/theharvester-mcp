@@ -1,0 +1,47 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.devkindhq/theharvester-mcp",
+  "title": "theHarvester MCP",
+  "description": "OSINT email and subdomain discovery for AI agents, powered by theHarvester. Multi-arch Docker.",
+  "websiteUrl": "https://devkind.com.au/services",
+  "repository": {
+    "url": "https://github.com/devkindhq/theharvester-mcp",
+    "source": "github"
+  },
+  "version": "1.0.0",
+  "packages": [
+    {
+      "registryType": "oci",
+      "identifier": "docker.io/devkind/theharvester-mcp:1.0.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "THEHARVESTER_TIMEOUT",
+          "description": "Per-harvest timeout in seconds (default 120)",
+          "isRequired": false,
+          "isSecret": false
+        },
+        {
+          "name": "THEHARVESTER_MAX_CONCURRENT",
+          "description": "Maximum concurrent harvests (default 2)",
+          "isRequired": false,
+          "isSecret": false
+        }
+      ]
+    }
+  ],
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "author": "Devkind",
+      "website": "https://devkind.com.au",
+      "tools": [
+        "harvest",
+        "get_harvest_results",
+        "list_active_harvests",
+        "list_sources"
+      ]
+    }
+  }
+}
