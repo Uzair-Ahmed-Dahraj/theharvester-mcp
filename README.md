@@ -170,7 +170,7 @@ Environment variables: `THEHARVESTER_TIMEOUT` (default 120s), `THEHARVESTER_MAX_
 
 ## Claude Code skill
 
-This repo ships a skill at [`skills/harvester/SKILL.md`](skills/harvester/SKILL.md`). When the
+This repo ships a skill at [`skills/harvester/SKILL.md`](skills/harvester/SKILL.md). When the
 repo is used as a Claude Code plugin source (or skills directory), the skill is auto-discovered
 and teaches the agent when and how to run OSINT harvests — tool names (`harvest`,
 `get_harvest_results`, `list_active_harvests`, `list_sources`), recommended sources, and the
