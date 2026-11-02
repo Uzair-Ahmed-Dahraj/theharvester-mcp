@@ -2,7 +2,7 @@ FROM python:3.12-slim
 
 LABEL org.opencontainers.image.title="theharvester-mcp"
 LABEL org.opencontainers.image.description="theHarvester MCP Server - OSINT email, subdomain and contact harvesting for AI agents"
-LABEL org.opencontainers.image.licenses="MIT"
+LABEL org.opencontainers.image.licenses="MIT AND GPL-2.0-only"
 LABEL org.opencontainers.image.source="https://github.com/devkindhq/theharvester-mcp"
 LABEL io.modelcontextprotocol.server.name="io.github.devkindhq/theharvester-mcp"
 
@@ -14,13 +14,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     ca-certificates \
     tini \
+    procps \
     && rm -rf /var/lib/apt/lists/*
 
-# Install uv (official multi-arch image; theHarvester needs a recent uv for
-# managed-Python discovery and relative exclude-newer dates)
-COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /usr/local/bin/
+COPY --from=ghcr.io/astral-sh/uv:0.13.6 /uv /uvx /usr/local/bin/
 
-# Install theHarvester (requires Python >=3.14; uv fetches a managed interpreter)
+# Install theHarvester (uv fetches the managed Python that theHarvester asks for)
 ARG THEHARVESTER_VERSION=4.11.1
 RUN git clone --depth 1 --branch ${THEHARVESTER_VERSION} https://github.com/laramies/theHarvester.git /opt/theharvester && \
     cd /opt/theharvester && \

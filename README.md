@@ -1,5 +1,9 @@
 # theHarvester MCP Server: OSINT email and subdomain discovery for AI agents
 
+[![Docker Hub](https://img.shields.io/docker/v/devkind/theharvester-mcp?sort=semver&label=docker%20hub)](https://hub.docker.com/r/devkind/theharvester-mcp)
+[![CI](https://github.com/devkindhq/theharvester-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/devkindhq/theharvester-mcp/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/github/license/devkindhq/theharvester-mcp)](LICENSE)
+
 theHarvester MCP Server wraps [theHarvester](https://github.com/laramies/theHarvester) in a
 [Model Context Protocol](https://modelcontextprotocol.io) server so Claude Code, Cursor, or any
 MCP client can harvest public emails, subdomains, hostnames, IPs, and LinkedIn profiles for a
@@ -13,7 +17,7 @@ with configurable concurrency and timeouts, and results stay retrievable by harv
 ## Quick start
 
 ```bash
-docker pull devkind/theharvester-mcp
+docker pull devkind/theharvester-mcp:latest
 ```
 
 Add to `.mcp.json` (Claude Code) or your MCP client config:
@@ -23,7 +27,7 @@ Add to `.mcp.json` (Claude Code) or your MCP client config:
   "mcpServers": {
     "theharvester": {
       "command": "docker",
-      "args": ["run", "--rm", "-i", "devkind/theharvester-mcp"]
+      "args": ["run", "-i", "--rm", "devkind/theharvester-mcp:latest"]
     }
   }
 }
@@ -48,9 +52,9 @@ Requirements:
       "command": "docker",
       "args": [
         "run",
-        "--rm",
         "-i",
-        "devkind/theharvester-mcp"
+        "--rm",
+        "devkind/theharvester-mcp:latest"
       ]
     }
   }
@@ -70,7 +74,7 @@ Follow the MCP install [guide](https://modelcontextprotocol.io/quickstart/user) 
 Run:
 
 ```bash
-claude mcp add theharvester -- docker run --rm -i devkind/theharvester-mcp
+claude mcp add theharvester -- docker run -i --rm devkind/theharvester-mcp:latest
 ```
 
 Or add the standard config above to `.mcp.json` in your project root.
@@ -82,11 +86,11 @@ Or add the standard config above to `.mcp.json` in your project root.
 
 #### Click the button to install:
 
-[<img src="https://cursor.com/deeplink/mcp-install-dark.svg" alt="Install in Cursor">](https://cursor.com/en/install-mcp?name=theHarvester%20MCP&config=eyJjb21tYW5kIjoiZG9ja2VyIiwiYXJncyI6WyJydW4iLCItLXJtIiwiLWkiLCJkZXZraW5kL3RoZWhhcnZlc3Rlci1tY3AiXX0%3D)
+[<img src="https://cursor.com/deeplink/mcp-install-dark.svg" alt="Install in Cursor">](https://cursor.com/en/install-mcp?name=theHarvester%20MCP&config=eyJjb21tYW5kIjoiZG9ja2VyIiwiYXJncyI6WyJydW4iLCItaSIsIi0tcm0iLCJkZXZraW5kL3RoZWhhcnZlc3Rlci1tY3A6bGF0ZXN0Il19)
 
 #### Or install manually:
 
-Go to `Cursor Settings` -> `MCP` -> `Add new MCP Server`. Name it "theHarvester MCP", use `command` type with the command `docker run --rm -i devkind/theharvester-mcp`.
+Go to `Cursor Settings` -> `MCP` -> `Add new MCP Server`. Name it "theHarvester MCP", use `command` type with the command `docker run -i --rm devkind/theharvester-mcp:latest`.
 
 </details>
 
@@ -96,7 +100,7 @@ Go to `Cursor Settings` -> `MCP` -> `Add new MCP Server`. Name it "theHarvester 
 Follow the MCP install [guide](https://code.visualstudio.com/docs/copilot/chat/mcp-servers#_add-an-mcp-server) and use the standard config above. You can also install with the VS Code CLI:
 
 ```bash
-code --add-mcp '{"name":"theharvester","command":"docker","args":["run","--rm","-i","devkind/theharvester-mcp"]}'
+code --add-mcp '{"name":"theharvester","command":"docker","args":["run","-i","--rm","devkind/theharvester-mcp:latest"]}'
 ```
 
 </details>
@@ -111,7 +115,7 @@ Follow the Windsurf MCP [documentation](https://docs.windsurf.com/windsurf/casca
 <details>
 <summary>Goose</summary>
 
-Go to `Advanced settings` -> `Extensions` -> `Add custom extension`. Name it "theHarvester MCP", use type `STDIO`, and set the `command` to `docker run --rm -i devkind/theharvester-mcp`. Click "Add Extension".
+Go to `Advanced settings` -> `Extensions` -> `Add custom extension`. Name it "theHarvester MCP", use type `STDIO`, and set the `command` to `docker run -i --rm devkind/theharvester-mcp:latest`. Click "Add Extension".
 
 </details>
 
@@ -142,7 +146,7 @@ Seven sources work with no API key: crtsh, hackertarget, dnsdumpster, rapiddns, 
 and duckduckgo. Sources like shodan, censys, and virustotal need keys configured in the
 theHarvester install.
 
-## Example call and output
+## Example
 
 Tool call: `harvest` with `{"domain": "example.com", "sources": "free"}`
 
@@ -165,16 +169,34 @@ list), `limit`, and `timeout`; invalid domains are rejected before any network c
 
 ## Configuration
 
-Environment variables: `THEHARVESTER_TIMEOUT` (default 120s), `THEHARVESTER_MAX_CONCURRENT`
-(default 2), `THEHARVESTER_OUTPUT_DIR` (default `/app/output`).
+| Variable | Default | Purpose |
+|---|---|---|
+| `THEHARVESTER_TIMEOUT` | `120` | Default per-harvest timeout in seconds |
+| `THEHARVESTER_MAX_CONCURRENT` | `2` | Maximum harvests that run at the same time |
+| `THEHARVESTER_OUTPUT_DIR` | `/app/output` | Directory for theHarvester JSON output |
 
-## Claude Code skill
+Pass a variable with `-e` before the image name, for example
+`"args": ["run", "-i", "--rm", "-e", "THEHARVESTER_TIMEOUT=300", "devkind/theharvester-mcp:latest"]`.
 
-This repo ships a skill at [`skills/harvester/SKILL.md`](skills/harvester/SKILL.md`). When the
-repo is used as a Claude Code plugin source (or skills directory), the skill is auto-discovered
-and teaches the agent when and how to run OSINT harvests — tool names (`harvest`,
-`get_harvest_results`, `list_active_harvests`, `list_sources`), recommended sources, and the
-report format to return.
+## Claude Code plugin
+
+The repo root is a Claude Code plugin. The plugin adds two things:
+
+- The MCP server, from `.mcp.json`. The plugin pins the image version and runs the container with
+  memory, CPU and process limits.
+- The `harvester` skill at [`skills/harvester/SKILL.md`](skills/harvester/SKILL.md). The skill
+  tells the agent when to run a harvest, which tools and sources to use, and how to format the report.
+
+This repo is also a one-plugin marketplace. In Claude Code 2.1.275 or later, install the plugin
+with one command in a session:
+
+```
+/plugin install theharvester --marketplace devkindhq/theharvester-mcp
+```
+
+The plugin will also be in the Claude plugin directory once it is listed. Without the plugin, add
+the server with `claude mcp add` (see Install in your client), and copy `skills/harvester/` into
+your project's `.claude/skills/` directory.
 
 ## Responsible use
 
@@ -188,16 +210,27 @@ responsible for misuse.
 ## Roadmap
 
 - [x] Official MCP Registry listing (`io.github.devkindhq/theharvester-mcp`)
-- [ ] Docker MCP Registry, Smithery and Glama listings
+- [ ] Docker MCP Registry and Glama listings
 - [x] Pinned theHarvester version releases alongside `latest` (`devkind/theharvester-mcp:<version>` is built with theHarvester 4.11.1, `latest` tracks the newest release)
 - [x] CI workflow building and pushing the multi-arch image on tag (untested until the first tag)
 
-## License and contributing
+## Development
 
-[MIT](LICENSE) © Devkind. Issues and PRs welcome, see [CONTRIBUTING.md](CONTRIBUTING.md) and
-[SECURITY.md](SECURITY.md).
+Use Python 3.12, the same as the image. Install the dependencies and run the tests with `pip install -r requirements.txt pytest` and
+`python -m pytest`. The tests do not need theHarvester installed. See
+[CONTRIBUTING.md](CONTRIBUTING.md) for the checks and the release flow.
+
+## Built by
 
 Built by [Devkind](https://devkind.com.au). Maintained by Kazim Ali.
+
+## License
+
+The code in this repository is [MIT](LICENSE) © Devkind. See [CONTRIBUTING.md](CONTRIBUTING.md)
+and [SECURITY.md](SECURITY.md).
+
+The Docker image installs upstream theHarvester without changes. theHarvester is licensed under
+[GPL-2.0](https://github.com/laramies/theHarvester/blob/master/LICENSE) by its authors.
 
 ## Need OSINT and lead generation built into your stack?
 
