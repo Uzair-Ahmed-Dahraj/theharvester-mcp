@@ -1,9 +1,5 @@
 # Security Policy
 
-## Supported versions
-
-Only the latest release is supported.
-
 ## Reporting a vulnerability
 
 Email security@devkind.com.au with details and reproduction steps. Do not open a public issue.

@@ -1,9 +1,9 @@
 ---
 name: harvester
-description: OSINT domain intelligence skill, use when asked to research a company domain before outreach, find email addresses, subdomains, hosts, or LinkedIn profiles associated with a target domain for lead generation and stack analysis.
+description: OSINT domain intelligence skill — use when asked to research a company domain before outreach, find email addresses, subdomains, hosts, or LinkedIn profiles associated with a target domain for lead generation and stack analysis.
 ---
 
-# theHarvester: OSINT Domain Intelligence
+# theHarvester — OSINT Domain Intelligence
 
 ## When to use
 Invoke when the user asks to:
@@ -19,10 +19,10 @@ Invoke when the user asks to:
 ## Tools
 This skill drives the `theharvester-mcp` MCP server. Depending on the MCP client, tools appear with a client-specific prefix (e.g. `mcp__theharvester__harvest`); the base tool names are:
 
-- `harvest`: run an OSINT harvest against a domain (primary tool)
-- `get_harvest_results`: retrieve the results of a previous harvest by ID
-- `list_active_harvests`: show currently running harvests
-- `list_sources`: list all available sources and which need API keys
+- `harvest` — run an OSINT harvest against a domain (primary tool)
+- `get_harvest_results` — retrieve the results of a previous harvest by ID
+- `list_active_harvests` — show currently running harvests
+- `list_sources` — list all available sources and which need API keys
 
 ## Usage
 
@@ -38,9 +38,9 @@ harvest(domain="target.com", sources="crtsh,hackertarget,urlscan", limit=50)
 ```
 
 ### Available sources
-- `free`: all no-API-key sources (recommended starting point): crtsh, hackertarget, dnsdumpster, rapiddns, urlscan, otx, duckduckgo
-- `all`: every source, including active ones and key-requiring ones (use with caution)
-- Individual comma-separated source names: run `list_sources` first to see what is available and which need API keys
+- `free` — all no-API-key sources (recommended starting point): crtsh, hackertarget, dnsdumpster, rapiddns, urlscan, otx, duckduckgo
+- `all` — every source, including active ones and key-requiring ones (use with caution)
+- Individual comma-separated source names — run `list_sources` first to see what is available and which need API keys
 
 Other useful parameters: `limit` (max results per source, default 200) and `timeout` (seconds, default 120).
 
@@ -59,7 +59,7 @@ Return a structured report with these sections:
 - Recommended outreach targets (email patterns if found)
 
 ## Parallelisation
-Safe: each harvest runs against a different domain with no shared state. Multiple harvests can run simultaneously against different domains (concurrency capped by `THEHARVESTER_MAX_CONCURRENT`, default 2).
+Safe — each harvest runs against a different domain with no shared state. Multiple harvests can run simultaneously against different domains (concurrency capped by `THEHARVESTER_MAX_CONCURRENT`, default 2).
 
 ## Machine-readable Return Contract
 When invoked by an orchestrator collecting intelligence on multiple domains:

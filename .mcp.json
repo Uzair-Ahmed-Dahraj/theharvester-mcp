@@ -1,8 +1,6 @@
 {
-  "mcpServers": {
-    "theharvester": {
-      "command": "docker",
-      "args": ["run", "-i", "--rm", "--memory=1g", "--cpus=0.5", "--pids-limit=100", "devkind/theharvester-mcp:1.1.0"]
-    }
+  "theharvester": {
+    "command": "docker",
+    "args": ["run", "-i", "--rm", "--memory=512m", "--cpus=0.5", "--pids-limit=100", "devkind/theharvester-mcp:latest"]
   }
 }
